@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brock & Karly | Our Wedding Celebration</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'baby-blue': '#A0C4DF',
+                        'baby-light': '#EBF3FA',
+                        'dusty-blue': '#4A739C',
+                        'dusty-dark': '#32527B',
+                        'sage-green': '#94A883',
+                        'sage-light': '#F0F4EC',
+                        'sage-dark': '#4F6340',
+                        'cream': '#FAF8F5',
+                        'white-flower': '#FFFFFF',
+                        'slate-dark': '#1E293B',
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        script: ['Great Vibes', 'cursive'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF8F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #A0C4DF;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4A739C;
+        }
+
+        .floral-border {
+            border: 1.5px solid rgba(74, 115, 156, 0.3);
+            box-shadow: inset 0 0 20px rgba(160, 196, 223, 0.15), 0 8px 30px rgba(50, 82, 123, 0.08);
+        }
+
+        .wildflower-bg {
+            background-color: #FAF8F5;
+            background-image: radial-gradient(#A0C4DF 1px, transparent 1px), radial-gradient(#94A883 1px, #FAF8F5 1px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        @keyframes floatPetal {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            50% { transform: translateY(-15px) rotate(10deg); opacity: 1; }
+            100% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+        }
+
+        .petal-float {
+            animation: floatPetal 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-cream text-slate-dark font-sans leading-relaxed selection:bg-baby-blue selection:text-slate-dark">
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-40 glass-card border-b border-dusty-blue/20 shadow-sm" id="navbar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#home" class="font-script text-3xl sm:text-4xl text-dusty-dark hover:text-dusty-blue transition">
+                    Brock & Karly
+                </a>
+                
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-6 text-xs sm:text-sm font-medium tracking-wide uppercase">
+                    <a href="#schedule" class="hover:text-dusty-blue text-slate-dark transition py-1">Schedule</a>
+                    <a href="#ceremony-note" class="hover:text-dusty-blue text-slate-dark transition py-1">Ceremony Note</a>
+                    <a href="#menu" class="hover:text-dusty-blue text-slate-dark transition py-1">Menu & Drinks</a>
+                    <a href="#location" class="hover:text-dusty-blue text-slate-dark transition py-1">The Pond</a>
+                    <a href="#faq" class="hover:text-dusty-blue text-slate-dark transition py-1">FAQ</a>
+                    <a href="#rsvp" class="bg-dusty-blue text-white px-5 py-2.5 rounded-full hover:bg-dusty-dark transition shadow-sm">RSVP</a>
+                    <button onclick="toggleAdminModal()" title="View Host RSVP Dashboard" class="bg-sage-light text-sage-dark border border-sage-green/50 p-2 rounded-full hover:bg-sage-green hover:text-white transition">
+                        <i class="fa-solid fa-clipboard-list text-base"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu & Dashboard Toggle -->
+                <div class="flex md:hidden items-center space-x-2">
+                    <button onclick="toggleAdminModal()" title="View Host RSVPs" class="bg-sage-light text-sage-dark p-2 rounded-full">
+                        <i class="fa-solid fa-clipboard-list text-lg"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-slate-dark p-2" aria-label="Toggle menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cream border-b border-dusty-blue/20 px-4 pt-2 pb-6 space-y-3 font-medium text-center shadow-lg">
+            <a href="#schedule" class="block py-2 text-slate-dark hover:text-dusty-blue">Schedule</a>
+            <a href="#ceremony-note" class="block py-2 text-slate-dark hover:text-dusty-blue">Ceremony Note</a>
+            <a href="#menu" class="block py-2 text-slate-dark hover:text-dusty-blue">Menu & Drinks</a>
+            <a href="#location" class="block py-2 text-slate-dark hover:text-dusty-blue">The Pond Location</a>
+            <a href="#faq" class="block py-2 text-slate-dark hover:text-dusty-blue">FAQ</a>
+            <a href="#rsvp" class="inline-block w-full mt-2 bg-dusty-blue text-white py-2.5 rounded-full hover:bg-dusty-dark">RSVP Now</a>
+            <button onclick="toggleAdminModal(); document.getElementById('mobile-menu').classList.add('hidden');" class="w-full bg-sage-light text-sage-dark py-2 rounded-full text-xs font-semibold">
+                <i class="fa-solid fa-table mr-1"></i> Host RSVP Dashboard
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <header id="home" class="relative min-h-[85vh] flex items-center justify-center text-center px-4 py-16 overflow-hidden bg-gradient-to-b from-baby-light via-cream to-cream">
+        <!-- Wildflower SVG Decors -->
+        <div class="absolute top-0 left-0 w-36 sm:w-52 opacity-60 pointer-events-none petal-float">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,10 Q40,20 20,60 T60,90" stroke="#4A739C" stroke-width="1.5" fill="none"/>
+                <circle cx="20" cy="60" r="4" fill="#94A883"/>
+                <circle cx="40" cy="20" r="5" fill="#FFFFFF" stroke="#4A739C" stroke-width="1.5"/>
+                <circle cx="60" cy="90" r="6" fill="#A0C4DF"/>
+            </svg>
+        </div>
+        <div class="absolute top-0 right-0 w-36 sm:w-52 opacity-60 pointer-events-none transform scale-x-[-1] petal-float" style="animation-delay: 2s;">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,10 Q40,20 20,60 T60,90" stroke="#4A739C" stroke-width="1.5" fill="none"/>
+                <circle cx="20" cy="60" r="4" fill="#94A883"/>
+                <circle cx="40" cy="20" r="5" fill="#FFFFFF" stroke="#4A739C" stroke-width="1.5"/>
+                <circle cx="60" cy="90" r="6" fill="#A0C4DF"/>
+            </svg>
+        </div>
+
+        <div class="max-w-3xl mx-auto space-y-6 relative z-10">
+            <div class="inline-flex items-center space-x-2 text-dusty-dark text-xs sm:text-sm font-semibold tracking-widest uppercase bg-white px-5 py-2 rounded-full border border-baby-blue/40 shadow-sm">
+                <i class="fa-solid fa-seedling text-sage-green"></i>
+                <span>We're Getting Married Outdoors</span>
+                <i class="fa-solid fa-seedling text-sage-green"></i>
+            </div>
+
+            <h1 class="font-script text-6xl sm:text-7xl lg:text-8xl text-dusty-dark drop-shadow-sm py-2">
+                Brock Long & Karly Green
+            </h1>
+
+            <p class="font-serif italic text-xl sm:text-2xl text-slate-dark/80">
+                Join us for an outdoor celebration at The Pond under the Oklahoma sky!
+            </p>
+
+            <div class="flex items-center justify-center space-x-3 text-dusty-blue font-serif text-lg sm:text-xl font-bold py-2">
+                <span class="border-b border-baby-blue w-12"></span>
+                <span>APRIL 24, 2027</span>
+                <span class="border-b border-baby-blue w-12"></span>
+            </div>
+
+            <p class="text-sm font-medium tracking-wide text-slate-dark/70 uppercase">
+                41048 Aline Blacktop Rd • Aline, Oklahoma
+            </p>
+
+            <div class="inline-block bg-sage-light text-sage-dark text-xs font-semibold px-4 py-2 rounded-xl border border-sage-green/40 shadow-xs">
+                <i class="fa-solid fa-sun text-amber-400 mr-1.5"></i> Outdoor Evening Celebration — No doors, open air & wildflowers!
+            </div>
+
+            <!-- Countdown Timer Card -->
+            <div class="pt-4">
+                <div class="floral-border glass-card rounded-2xl p-6 shadow-md max-w-xl mx-auto bg-white/95">
+                    <h2 class="text-xs font-semibold uppercase tracking-widest text-dusty-dark mb-4">
+                        Countdown to Reception & Party
+                    </h2>
+                    <div class="grid grid-cols-4 gap-2 sm:gap-4 text-center">
+                        <div class="bg-baby-light p-3 rounded-xl border border-baby-blue/40">
+                            <span id="cd-days" class="font-serif text-2xl sm:text-4xl font-bold text-dusty-dark block">00</span>
+                            <span class="text-[10px] sm:text-xs uppercase font-medium text-dusty-blue">Days</span>
+                        </div>
+                        <div class="bg-baby-light p-3 rounded-xl border border-baby-blue/40">
+                            <span id="cd-hours" class="font-serif text-2xl sm:text-4xl font-bold text-dusty-dark block">00</span>
+                            <span class="text-[10px] sm:text-xs uppercase font-medium text-dusty-blue">Hours</span>
+                        </div>
+                        <div class="bg-baby-light p-3 rounded-xl border border-baby-blue/40">
+                            <span id="cd-minutes" class="font-serif text-2xl sm:text-4xl font-bold text-dusty-dark block">00</span>
+                            <span class="text-[10px] sm:text-xs uppercase font-medium text-dusty-blue">Mins</span>
+                        </div>
+                        <div class="bg-baby-light p-3 rounded-xl border border-baby-blue/40">
+                            <span id="cd-seconds" class="font-serif text-2xl sm:text-4xl font-bold text-dusty-dark block">00</span>
+                            <span class="text-[10px] sm:text-xs uppercase font-medium text-dusty-blue">Secs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-4 flex flex-wrap justify-center gap-4">
+                <a href="#rsvp" class="bg-dusty-blue text-white hover:bg-dusty-dark transition-all duration-300 font-medium px-8 py-3 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    RSVP For Reception
+                </a>
+                <a href="#location" class="bg-white text-dusty-dark hover:bg-baby-light border border-baby-blue transition-all duration-300 font-medium px-8 py-3 rounded-full shadow-md">
+                    <i class="fa-solid fa-location-dot text-dusty-blue mr-2"></i> Directions to The Pond
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Important Ceremony Privacy Note Section -->
+    <section id="ceremony-note" class="py-12 bg-white border-y border-baby-blue/20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="glass-card rounded-2xl p-6 sm:p-10 floral-border relative z-10 border-baby-blue/40">
+                <div class="flex flex-col md:flex-row items-center text-center md:text-left gap-6">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-baby-light border-2 border-baby-blue flex items-center justify-center shrink-0 shadow-inner text-dusty-blue">
+                        <i class="fa-solid fa-heart text-2xl sm:text-3xl"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-semibold tracking-widest text-dusty-dark uppercase block">An Intimate Beginning</span>
+                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-dusty-dark">
+                            A Gentle Note Regarding Our Ceremony
+                        </h2>
+                        <p class="text-slate-dark/90 text-sm sm:text-base leading-relaxed">
+                            We are holding an intimate, private ceremony at <strong>4:30 PM</strong> reserved strictly for our immediate family to exchange vows.
+                            <span class="block mt-2 font-medium text-dusty-dark">
+                                However, Brock & Karly are thrilled and eager to celebrate with ALL our family and friends at our <strong>Reception starting at 6:30 PM at The Pond!</strong> Please come ready for delicious food, drinks, dancing, and outdoor fun!
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Schedule Section -->
+    <section id="schedule" class="py-16 sm:py-24 bg-cream">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center space-y-3 mb-12">
+                <span class="text-xs font-semibold uppercase tracking-widest text-sage-dark">Timeline of Events</span>
+                <h2 class="font-serif text-4xl sm:text-5xl font-bold text-dusty-dark">Schedule of the Day</h2>
+                <div class="w-24 h-1 bg-baby-blue mx-auto rounded-full"></div>
+            </div>
+
+            <div class="relative border-l-2 border-baby-blue/50 ml-4 sm:ml-32 pl-6 sm:pl-10 space-y-12">
+
+                <!-- Timeline Item 1: Ceremony -->
+                <div class="relative group">
+                    <div class="absolute -left-[33px] sm:-left-[49px] top-1 w-10 h-10 rounded-full bg-sage-green text-white flex items-center justify-center ring-4 ring-cream shadow-md">
+                        <i class="fa-solid fa-ring text-sm"></i>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-baby-blue/20 hover:shadow-md transition">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-baby-blue/15 pb-2 mb-3">
+                            <span class="font-serif font-bold text-2xl text-dusty-dark">4:30 PM</span>
+                            <span class="text-xs uppercase tracking-wider font-semibold bg-sage-light text-sage-dark px-3 py-1 rounded-full w-max mt-1 sm:mt-0">Private Ceremony</span>
+                        </div>
+                        <h3 class="font-semibold text-lg text-slate-dark mb-1">Intimate Family Vows</h3>
+                        <p class="text-sm text-slate-dark/80">
+                            A private outdoor vow exchange reserved exclusively for immediate family members.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2: Reception Opens -->
+                <div class="relative group">
+                    <div class="absolute -left-[33px] sm:-left-[49px] top-1 w-10 h-10 rounded-full bg-dusty-blue text-white flex items-center justify-center ring-4 ring-cream shadow-md">
+                        <i class="fa-solid fa-champagne-glasses text-sm"></i>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-md border-2 border-baby-blue/60 relative">
+                        <div class="absolute -top-3 right-4 bg-dusty-dark text-white text-[10px] uppercase font-bold px-3 py-0.5 rounded-full shadow-sm">
+                            Everyone Welcome!
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-baby-blue/15 pb-2 mb-3">
+                            <span class="font-serif font-bold text-2xl text-dusty-dark">6:30 PM</span>
+                            <span class="text-xs uppercase tracking-wider font-semibold bg-baby-light text-dusty-dark px-3 py-1 rounded-full w-max mt-1 sm:mt-0">Reception Begins</span>
+                        </div>
+                        <h3 class="font-semibold text-lg text-slate-dark mb-1">Grand Outdoor Reception at The Pond</h3>
+                        <p class="text-sm text-slate-dark/80">
+                            All family, friends, and loved ones arrive! No doors to open—just step right onto the grounds, grab a seat, and enjoy the open air!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3: Dinner -->
+                <div class="relative group">
+                    <div class="absolute -left-[33px] sm:-left-[49px] top-1 w-10 h-10 rounded-full bg-baby-blue text-dusty-dark flex items-center justify-center ring-4 ring-cream shadow-md">
+                        <i class="fa-solid fa-utensils text-sm"></i>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-baby-blue/20 hover:shadow-md transition">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-baby-blue/15 pb-2 mb-3">
+                            <span class="font-serif font-bold text-2xl text-dusty-dark">7:00 PM</span>
+                            <span class="text-xs uppercase tracking-wider font-semibold bg-baby-light text-dusty-dark px-3 py-1 rounded-full w-max mt-1 sm:mt-0">Buffet Dinner</span>
+                        </div>
+                        <h3 class="font-semibold text-lg text-slate-dark mb-1">BBQ Buffet Dinner</h3>
+                        <p class="text-sm text-slate-dark/80">
+                            Help yourself to pulled pork sandwiches, mac & cheese, potato salad, pasta salad, chips, and sweet iced tea.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 4: Music & Dancing -->
+                <div class="relative group">
+                    <div class="absolute -left-[33px] sm:-left-[49px] top-1 w-10 h-10 rounded-full bg-sage-green text-white flex items-center justify-center ring-4 ring-cream shadow-md">
+                        <i class="fa-solid fa-music text-sm"></i>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-baby-blue/20 hover:shadow-md transition">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-baby-blue/15 pb-2 mb-3">
+                            <span class="font-serif font-bold text-2xl text-dusty-dark">8:00 PM - Late</span>
+                            <span class="text-xs uppercase tracking-wider font-semibold bg-sage-light text-sage-dark px-3 py-1 rounded-full w-max mt-1 sm:mt-0">Dancing Under the Stars</span>
+                        </div>
+                        <h3 class="font-semibold text-lg text-slate-dark mb-1">Music & Celebration</h3>
+                        <p class="text-sm text-slate-dark/80">
+                            Dance, socialize, and celebrate Brock & Karly under the Oklahoma night sky!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu & Refreshments Section -->
+    <section id="menu" class="py-16 sm:py-24 bg-white wildflower-bg">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="text-center space-y-3 mb-12">
+                <span class="text-xs font-semibold uppercase tracking-widest text-dusty-blue">Feast & Drinks</span>
+                <h2 class="font-serif text-4xl sm:text-5xl font-bold text-dusty-dark">Menu & Refreshments</h2>
+                <p class="text-slate-dark/70 italic max-w-xl mx-auto">A delicious outdoor buffet dinner for everyone to enjoy!</p>
+                <div class="w-24 h-1 bg-dusty-blue mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Food Menu Card -->
+                <div class="bg-white/95 rounded-2xl p-8 floral-border border-baby-blue shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-6 pb-3 border-b border-baby-blue/20">
+                            <div class="w-12 h-12 rounded-full bg-baby-light flex items-center justify-center text-dusty-blue text-xl">
+                                <i class="fa-solid fa-burger"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-2xl font-bold text-dusty-dark">BBQ Buffet Dinner</h3>
+                                <p class="text-xs text-slate-dark/60 uppercase">Served Buffet Style at 7:00 PM</p>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-4 text-slate-dark">
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-check text-sage-green mt-1"></i>
+                                <div>
+                                    <strong class="font-semibold text-dusty-dark block">Pulled Pork Sandwiches</strong>
+                                    <span class="text-xs text-slate-dark/70">Tender slow-cooked pork on warm rolls.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-check text-sage-green mt-1"></i>
+                                <div>
+                                    <strong class="font-semibold text-dusty-dark block">Creamy Mac & Cheese</strong>
+                                    <span class="text-xs text-slate-dark/70">Baked cheesy favorite.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-check text-sage-green mt-1"></i>
+                                <div>
+                                    <strong class="font-semibold text-dusty-dark block">Potato Salad</strong>
+                                    <span class="text-xs text-slate-dark/70">Classic homestyle recipe.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-check text-sage-green mt-1"></i>
+                                <div>
+                                    <strong class="font-semibold text-dusty-dark block">Pasta Salad</strong>
+                                    <span class="text-xs text-slate-dark/70">Chilled pasta with herbs and veggies.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-check text-sage-green mt-1"></i>
+                                <div>
+                                    <strong class="font-semibold text-dusty-dark block">Assorted Chips</strong>
+                                    <span class="text-xs text-slate-dark/70">Crunchy snack chip selection.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Fixed Menu Policy Notice -->
+                    <div class="mt-8 p-4 rounded-xl bg-baby-light/60 border border-baby-blue/30 text-xs text-slate-dark/80 space-y-1">
+                        <strong class="font-semibold text-dusty-dark block"><i class="fa-solid fa-circle-info mr-1 text-dusty-blue"></i> Note on Dietary Needs:</strong>
+                        Our menu is set with no custom alterations or dietary accommodations. If you or your guests have specific dietary requirements, please feel free to bring along whatever food items fit your needs!
+                    </div>
+                </div>
+
+                <!-- Drinks & BYOB Policy Card -->
+                <div class="bg-white/95 rounded-2xl p-8 floral-border border-baby-blue shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-6 pb-3 border-b border-baby-blue/20">
+                            <div class="w-12 h-12 rounded-full bg-baby-light flex items-center justify-center text-dusty-blue text-xl">
+                                <i class="fa-solid fa-glass-water"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-2xl font-bold text-dusty-dark">Beverages & BYOB</h3>
+                                <p class="text-xs text-slate-dark/60 uppercase">Refreshments Provided</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-dusty-dark text-xs uppercase tracking-wider mb-3">Provided Refreshments:</h4>
+                                <ul class="space-y-3 text-slate-dark">
+                                    <li class="flex items-center space-x-3">
+                                        <i class="fa-solid fa-mug-hot text-dusty-blue text-sm"></i>
+                                        <span class="text-sm font-medium">Sweet Tea & Unsweetened Tea</span>
+                                    </li>
+                                    <li class="flex items-center space-x-3">
+                                        <i class="fa-solid fa-whiskey-glass text-baby-blue text-sm"></i>
+                                        <span class="text-sm font-medium">Ice Water</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- BYOB Box -->
+                            <div class="bg-sage-light/70 rounded-xl p-5 border border-sage-green/40 space-y-2">
+                                <div class="flex items-center space-x-2 text-dusty-dark font-semibold text-sm">
+                                    <i class="fa-solid fa-beer-mug-empty text-dusty-blue"></i>
+                                    <span>BYOB (Bring Your Own Beverage)</span>
+                                </div>
+                                <p class="text-xs text-slate-dark/80 leading-relaxed">
+                                    Alcohol will not be provided by the hosts. Guests who wish to partake are welcome to bring their own adult beverages of choice! Coolers and ice are welcome on the grounds.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-4 border-t border-baby-blue/20 text-center text-xs text-slate-dark/70 italic">
+                        Please drink responsibly during our outdoor celebration!
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Venue Map Section -->
+    <section id="location" class="py-16 sm:py-24 bg-cream">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="text-center space-y-3 mb-12">
+                <span class="text-xs font-semibold uppercase tracking-widest text-sage-dark">Outdoor Venue</span>
+                <h2 class="font-serif text-4xl sm:text-5xl font-bold text-dusty-dark">The Pond in Aline, OK</h2>
+                <div class="w-24 h-1 bg-sage-green mx-auto rounded-full"></div>
+            </div>
+
+            <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-baby-blue/30 grid grid-cols-1 md:grid-cols-12">
+                <div class="p-8 md:col-span-5 flex flex-col justify-between bg-gradient-to-br from-baby-light/40 to-white">
+                    <div class="space-y-4">
+                        <div class="inline-block p-3 rounded-full bg-baby-light text-dusty-blue text-xl mb-1">
+                            <i class="fa-solid fa-tree"></i>
+                        </div>
+                        <h3 class="font-serif text-3xl font-bold text-dusty-dark">"The Pond"</h3>
+                        
+                        <div class="text-slate-dark space-y-1">
+                            <p class="font-semibold text-base">41048 Aline Blacktop Rd</p>
+                            <p class="text-sm">Aline, OK 73716</p>
+                        </div>
+
+                        <div class="pt-2 text-xs text-slate-dark/80 space-y-2">
+                            <p class="flex items-center"><i class="fa-solid fa-sun text-amber-400 mr-2"></i> 100% Outdoor Event (Dress comfortably for spring!)</p>
+                            <p class="flex items-center"><i class="fa-solid fa-square-parking text-dusty-blue mr-2"></i> Parking available on property.</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-8 space-y-3">
+                        <a href="https://www.google.com/maps/search/?api=1&query=41048+Aline+Blacktop+Rd,+Aline,+OK+73716" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-dusty-blue text-white hover:bg-dusty-dark transition font-medium py-3 rounded-xl shadow-md">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-2"></i> Open in Google Maps
+                        </a>
+                        <button onclick="copyAddress()" id="copy-btn" class="block w-full text-center bg-cream text-dusty-dark hover:bg-baby-light border border-baby-blue/40 transition text-xs font-medium py-2.5 rounded-xl">
+                            <i class="fa-regular fa-copy mr-1"></i> Copy Address
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Google Maps iFrame -->
+                <div class="md:col-span-7 h-80 md:h-auto min-h-[320px] bg-baby-light relative">
+                    <iframe 
+                        title="The Pond Location Map" 
+                        class="w-full h-full border-0" 
+                        loading="lazy" 
+                        allowfullscreen 
+                        src="https://maps.google.com/maps?q=41048%20Aline%20Blacktop%20Rd,%20Aline,%20OK%2073716&t=&z=13&ie=UTF8&iwloc=&output=embed">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Accordion Section -->
+    <section id="faq" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+            <div class="text-center space-y-3 mb-12">
+                <span class="text-xs font-semibold uppercase tracking-widest text-dusty-blue">Good to Know</span>
+                <h2 class="font-serif text-4xl sm:text-5xl font-bold text-dusty-dark">Frequently Asked Questions</h2>
+                <div class="w-24 h-1 bg-baby-blue mx-auto rounded-full"></div>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-cream rounded-xl border border-baby-blue/30 overflow-hidden shadow-sm">
+                    <button class="faq-toggle w-full text-left p-5 font-serif font-semibold text-lg text-dusty-dark flex justify-between items-center focus:outline-none">
+                        <span>What should I wear for an outdoor wedding?</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300 text-dusty-blue"></i>
+                    </button>
+                    <div class="faq-content hidden px-5 pb-5 text-sm text-slate-dark/80 leading-relaxed border-t border-baby-blue/20 pt-3">
+                        Dress in comfortable outdoor attire/dressy casual! Since the wedding is held at The Pond outdoors without indoor flooring, flat shoes, boots, wedges, or sandals are recommended over thin high heels. Bring a light jacket or sweater for when the sun goes down!
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-cream rounded-xl border border-baby-blue/30 overflow-hidden shadow-sm">
+                    <button class="faq-toggle w-full text-left p-5 font-serif font-semibold text-lg text-dusty-dark flex justify-between items-center focus:outline-none">
+                        <span>Can I attend the 4:30 PM ceremony?</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300 text-dusty-blue"></i>
+                    </button>
+                    <div class="faq-content hidden px-5 pb-5 text-sm text-slate-dark/80 leading-relaxed border-t border-baby-blue/20 pt-3">
+                        Our 4:30 PM ceremony is strictly reserved as an intimate gathering for immediate family only. We ask that all other cherished guests arrive at <strong>6:30 PM for our reception celebration</strong>!
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-cream rounded-xl border border-baby-blue/30 overflow-hidden shadow-sm">
+                    <button class="faq-toggle w-full text-left p-5 font-serif font-semibold text-lg text-dusty-dark flex justify-between items-center focus:outline-none">
+                        <span>How does BYOB work at the venue?</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300 text-dusty-blue"></i>
+                    </button>
+                    <div class="faq-content hidden px-5 pb-5 text-sm text-slate-dark/80 leading-relaxed border-t border-baby-blue/20 pt-3">
+                        We will provide iced sweet tea, unsweetened tea, and water. Alcohol is not provided, but you are welcome to bring a cooler with your beverage of choice for the evening!
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="bg-cream rounded-xl border border-baby-blue/30 overflow-hidden shadow-sm">
+                    <button class="faq-toggle w-full text-left p-5 font-serif font-semibold text-lg text-dusty-dark flex justify-between items-center focus:outline-none">
+                        <span>How do Brock & Karly access RSVPs?</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300 text-dusty-blue"></i>
+                    </button>
+                    <div class="faq-content hidden px-5 pb-5 text-sm text-slate-dark/80 leading-relaxed border-t border-baby-blue/20 pt-3">
+                        All guest responses submitted on this website are recorded locally into the website's built-in Host RSVP Dashboard. Brock & Karly can access all entries anytime and download them with one click as an Excel/CSV spreadsheet!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="py-16 sm:py-24 bg-gradient-to-b from-cream via-baby-light/40 to-cream relative">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+            <div class="glass-card floral-border rounded-3xl p-6 sm:p-12 shadow-xl border-baby-blue relative z-10 bg-white/95">
+                <div class="text-center space-y-3 mb-8">
+                    <span class="text-xs font-semibold uppercase tracking-widest text-dusty-blue">Join Brock & Karly</span>
+                    <h2 class="font-serif text-4xl sm:text-5xl font-bold text-dusty-dark">RSVP For Reception</h2>
+                    <p class="text-sm text-slate-dark/80">Please respond so we can prepare food and drinks for 6:30 PM!</p>
+                </div>
+
+                <!-- Success Confirmation Message -->
+                <div id="rsvp-success" class="hidden bg-sage-light border-2 border-sage-green rounded-2xl p-8 text-center space-y-4 my-6">
+                    <div class="w-16 h-16 bg-sage-green text-white rounded-full flex items-center justify-center mx-auto text-2xl shadow-sm">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <h3 class="font-serif text-3xl font-bold text-dusty-dark">RSVP Received!</h3>
+                    <p class="text-slate-dark font-medium">Thank you! Brock & Karly can't wait to celebrate with you at The Pond on April 24, 2027!</p>
+                    <p class="text-xs text-slate-dark/70">Your response has been logged successfully.</p>
+                    <button onclick="resetRsvpForm()" class="inline-block mt-2 text-xs uppercase font-semibold text-dusty-blue hover:underline">
+                        Submit another guest response
+                    </button>
+                </div>
+
+                <!-- RSVP Form -->
+                <form id="rsvp-form" class="space-y-6">
+                    <div>
+                        <label for="full-name" class="block text-xs font-semibold uppercase tracking-wider text-dusty-dark mb-2">
+                            Your Full Name(s) <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="full-name" required placeholder="e.g., Jane & John Doe" class="w-full px-4 py-3 rounded-xl bg-cream border border-baby-blue/50 focus:border-dusty-blue focus:ring-2 focus:ring-baby-blue/30 outline-none text-slate-dark placeholder-slate-dark/40 transition">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="attending" class="block text-xs font-semibold uppercase tracking-wider text-dusty-dark mb-2">
+                                Will you be attending? <span class="text-red-500">*</span>
+                            </label>
+                            <select id="attending" required class="w-full px-4 py-3 rounded-xl bg-cream border border-baby-blue/50 focus:border-dusty-blue focus:ring-2 focus:ring-baby-blue/30 outline-none text-slate-dark transition">
+                                <option value="">Select an option</option>
+                                <option value="Yes">Joyfully Accepts (6:30 PM Reception)</option>
+                                <option value="No">Regretfully Declines</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="adult-count" class="block text-xs font-semibold uppercase tracking-wider text-dusty-dark mb-2">
+                                Number of Adults
+                            </label>
+                            <input type="number" id="adult-count" min="1" max="15" value="1" class="w-full px-4 py-3 rounded-xl bg-cream border border-baby-blue/50 focus:border-dusty-blue focus:ring-2 focus:ring-baby-blue/30 outline-none text-slate-dark transition">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="child-count" class="block text-xs font-semibold uppercase tracking-wider text-dusty-dark mb-2">
+                                Number of Children
+                            </label>
+                            <input type="number" id="child-count" min="0" max="15" value="0" class="w-full px-4 py-3 rounded-xl bg-cream border border-baby-blue/50 focus:border-dusty-blue focus:ring-2 focus:ring-baby-blue/30 outline-none text-slate-dark transition">
+                        </div>
+
+                        <div>
+                            <label for="song-request" class="block text-xs font-semibold uppercase tracking-wider text-dusty-dark mb-2">
+                                Song Request <i class="fa-solid fa-music text-dusty-blue ml-1"></i>
+                            </label>
+                            <input type="text" id="song-request" placeholder="Favorite song to dance to?" class="w-full px-4 py-3 rounded-xl bg-cream border border-baby-blue/50 focus:border-dusty-blue focus:ring-2 focus:ring-baby-blue/30 outline-none text-slate-dark placeholder-slate-dark/40 transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="guest-note" class="block text-xs font-semibold uppercase tracking-wider text-dusty-dark mb-2">
+                            Note or Message for Brock & Karly
+                        </label>
+                        <textarea id="guest-note" rows="3" placeholder="Share a congratulations message or well wishes..." class="w-full px-4 py-3 rounded-xl bg-cream border border-baby-blue/50 focus:border-dusty-blue focus:ring-2 focus:ring-baby-blue/30 outline-none text-slate-dark placeholder-slate-dark/40 transition"></textarea>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="w-full bg-dusty-blue hover:bg-dusty-dark text-white font-semibold py-4 rounded-xl shadow-lg hover:shadow-xl transition duration-300 text-lg flex items-center justify-center space-x-2">
+                        <span>Submit RSVP</span>
+                        <i class="fa-solid fa-paper-plane text-sm"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Host Admin Dashboard Modal -->
+    <div id="admin-modal" class="fixed inset-0 bg-slate-dark/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl border-2 border-baby-blue flex flex-col">
+            <div class="bg-dusty-dark text-white p-6 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-baby-blue/30 flex items-center justify-center text-baby-blue">
+                        <i class="fa-solid fa-table-list text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold">Brock & Karly's RSVP Dashboard</h3>
+                        <p class="text-xs text-baby-blue">Live Guest Responses & Spreadsheet Exporter</p>
+                    </div>
+                </div>
+                <button onclick="toggleAdminModal()" class="text-white/70 hover:text-white p-2 text-2xl focus:outline-none">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto flex-1 space-y-6">
+                <!-- Summary Stats -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                    <div class="bg-baby-light p-4 rounded-2xl border border-baby-blue/30">
+                        <span id="stat-total" class="font-serif text-3xl font-bold text-dusty-dark">0</span>
+                        <span class="text-xs text-slate-dark/70 block uppercase font-medium mt-1">Total Responses</span>
+                    </div>
+                    <div class="bg-sage-light p-4 rounded-2xl border border-sage-green/40">
+                        <span id="stat-attending" class="font-serif text-3xl font-bold text-sage-dark">0</span>
+                        <span class="text-xs text-slate-dark/70 block uppercase font-medium mt-1">Attending Guests</span>
+                    </div>
+                    <div class="bg-cream p-4 rounded-2xl border border-baby-blue/30">
+                        <span id="stat-adults" class="font-serif text-3xl font-bold text-dusty-dark">0</span>
+                        <span class="text-xs text-slate-dark/70 block uppercase font-medium mt-1">Adult Headcount</span>
+                    </div>
+                    <div class="bg-cream p-4 rounded-2xl border border-baby-blue/30">
+                        <span id="stat-kids" class="font-serif text-3xl font-bold text-dusty-dark">0</span>
+                        <span class="text-xs text-slate-dark/70 block uppercase font-medium mt-1">Child Headcount</span>
+                    </div>
+                </div>
+
+                <!-- Action Toolbar -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-baby-blue/20">
+                    <span class="text-xs font-semibold uppercase text-dusty-dark tracking-wider">Submitted Guest List</span>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="exportToCSV()" class="bg-sage-dark hover:bg-sage-green text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm transition flex items-center space-x-1.5">
+                            <i class="fa-solid fa-file-excel"></i>
+                            <span>Download Excel / CSV</span>
+                        </button>
+                        <button onclick="clearAllRSVPs()" class="bg-red-50 text-red-600 hover:bg-red-100 text-xs font-semibold px-3 py-2.5 rounded-xl border border-red-200 transition">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RSVP Table -->
+                <div class="overflow-x-auto rounded-2xl border border-baby-blue/30">
+                    <table class="w-full text-left text-xs text-slate-dark">
+                        <thead class="bg-baby-light text-dusty-dark font-semibold uppercase tracking-wider border-b border-baby-blue/30">
+                            <tr>
+                                <th class="p-3">Date</th>
+                                <th class="p-3">Guest Name</th>
+                                <th class="p-3">Attending</th>
+                                <th class="p-3">Adults</th>
+                                <th class="p-3">Kids</th>
+                                <th class="p-3">Song Request</th>
+                                <th class="p-3">Message</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rsvp-table-body" class="divide-y divide-baby-blue/15 bg-white">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dusty-dark text-white py-12 text-center text-sm border-t-4 border-baby-blue">
+        <div class="max-w-4xl mx-auto px-4 space-y-4">
+            <p class="font-script text-4xl text-baby-blue">Brock Long & Karly Green</p>
+            <p class="font-serif italic text-white/80">April 24, 2027 • The Pond • Aline, Oklahoma</p>
+            <div class="pt-4 text-xs text-white/50 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2">
+                <span>We can't wait to see you for an amazing evening under the stars!</span>
+                <button onclick="toggleAdminModal()" class="text-baby-blue hover:underline">Host RSVP Dashboard</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript logic -->
+    <script>
+        // Mobile Navigation Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Countdown Timer Logic (Target Date: April 24, 2027 at 18:30 CDT)
+        const targetDate = new Date('April 24, 2027 18:30:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
+                document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('cd-minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('cd-seconds').innerText = String(seconds).padStart(2, '0');
+            } else {
+                document.getElementById('cd-days').innerText = '00';
+                document.getElementById('cd-hours').innerText = '00';
+                document.getElementById('cd-minutes').innerText = '00';
+                document.getElementById('cd-seconds').innerText = '00';
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // FAQ Accordion Toggle
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+
+                content.classList.toggle('hidden');
+                
+                if (content.classList.contains('hidden')) {
+                    icon.style.transform = 'rotate(0deg)';
+                } else {
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // Copy Address Helper
+        function copyAddress() {
+            const address = "41048 Aline Blacktop Rd, Aline, OK 73716";
+            const copyBtn = document.getElementById('copy-btn');
+            
+            const tempInput = document.createElement('input');
+            tempInput.value = address;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            copyBtn.innerHTML = '<i class="fa-solid fa-check text-sage-green mr-1"></i> Address Copied!';
+            setTimeout(() => {
+                copyBtn.innerHTML = '<i class="fa-regular fa-copy mr-1"></i> Copy Address';
+            }, 3000);
+        }
+
+        // --- RSVP Local Storage & Dashboard System ---
+        const RSVP_STORAGE_KEY = 'brock_karly_wedding_rsvps';
+
+        function getStoredRSVPs() {
+            return JSON.parse(localStorage.getItem(RSVP_STORAGE_KEY) || '[]');
+        }
+
+        function saveRSVPToLocalStorage(rsvpData) {
+            const rsvps = getStoredRSVPs();
+            rsvps.unshift(rsvpData);
+            localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(rsvps));
+            renderRSVPDashboard();
+        }
+
+        // RSVP Form Submission Handler
+        const rsvpForm = document.getElementById('rsvp-form');
+        const rsvpSuccess = document.getElementById('rsvp-success');
+
+        rsvpForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Submitting...';
+
+            const formData = {
+                id: Date.now(),
+                timestamp: new Date().toLocaleString('en-US', { dateStyle: 'short', timeStyle: 'short' }),
+                fullName: document.getElementById('full-name').value.trim(),
+                attending: document.getElementById('attending').value,
+                adults: document.getElementById('attending').value === 'Yes' ? parseInt(document.getElementById('adult-count').value || 1) : 0,
+                children: document.getElementById('attending').value === 'Yes' ? parseInt(document.getElementById('child-count').value || 0) : 0,
+                songRequest: document.getElementById('song-request').value.trim() || 'None',
+                note: document.getElementById('guest-note').value.trim() || 'None'
+            };
+
+            // Save locally
+            saveRSVPToLocalStorage(formData);
+
+            // UI Transition
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Submit RSVP</span><i class="fa-solid fa-paper-plane text-sm"></i>';
+            rsvpForm.classList.add('hidden');
+            rsvpSuccess.classList.remove('hidden');
+        });
+
+        function resetRsvpForm() {
+            rsvpForm.reset();
+            rsvpSuccess.classList.add('hidden');
+            rsvpForm.classList.remove('hidden');
+        }
+
+        // --- Host Admin Dashboard & CSV Exporter Functions ---
+        function toggleAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                renderRSVPDashboard();
+            }
+        }
+
+        function renderRSVPDashboard() {
+            const rsvps = getStoredRSVPs();
+            const tableBody = document.getElementById('rsvp-table-body');
+            
+            // Calculate Stats
+            let attendingCount = 0;
+            let adultCount = 0;
+            let childCount = 0;
+
+            rsvps.forEach(r => {
+                if (r.attending === 'Yes') {
+                    attendingCount++;
+                    adultCount += parseInt(r.adults || 0);
+                    childCount += parseInt(r.children || 0);
+                }
+            });
+
+            document.getElementById('stat-total').innerText = rsvps.length;
+            document.getElementById('stat-attending').innerText = attendingCount;
+            document.getElementById('stat-adults').innerText = adultCount;
+            document.getElementById('stat-kids').innerText = childCount;
+
+            if (rsvps.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="p-8 text-center text-slate-dark/60 italic">
+                            No RSVPs received yet. Form responses will automatically appear here!
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tableBody.innerHTML = rsvps.map(r => `
+                <tr class="hover:bg-baby-light/40 transition">
+                    <td class="p-3 text-slate-dark/60 whitespace-nowrap">${r.timestamp}</td>
+                    <td class="p-3 font-semibold text-dusty-dark">${escapeHtml(r.fullName)}</td>
+                    <td class="p-3 whitespace-nowrap">
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${r.attending === 'Yes' ? 'bg-sage-light text-sage-dark' : 'bg-red-50 text-red-600'}">
+                            ${r.attending}
+                        </span>
+                    </td>
+                    <td class="p-3 font-medium">${r.adults}</td>
+                    <td class="p-3 font-medium">${r.children}</td>
+                    <td class="p-3 text-slate-dark/80">${escapeHtml(r.songRequest)}</td>
+                    <td class="p-3 text-slate-dark/80 max-w-xs truncate">${escapeHtml(r.note)}</td>
+                </tr>
+            `).join('');
+        }
+
+        function clearAllRSVPs() {
+            if (confirm("Are you sure you want to clear all stored RSVPs? This action cannot be undone.")) {
+                localStorage.removeItem(RSVP_STORAGE_KEY);
+                renderRSVPDashboard();
+            }
+        }
+
+        function exportToCSV() {
+            const rsvps = getStoredRSVPs();
+            if (rsvps.length === 0) {
+                alert("No RSVP data available to export yet!");
+                return;
+            }
+
+            const headers = ["Timestamp", "Guest Name", "Attending", "Adults", "Children", "Song Request", "Message Note"];
+            const rows = rsvps.map(r => [
+                `"${r.timestamp}"`,
+                `"${r.fullName.replace(/"/g, '""')}"`,
+                `"${r.attending}"`,
+                r.adults,
+                r.children,
+                `"${r.songRequest.replace(/"/g, '""')}"`,
+                `"${r.note.replace(/"/g, '""')}"`
+            ]);
+
+            const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+            const encodedUri = encodeURI(csvContent);
+            
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Brock_and_Karly_Wedding_RSVPs_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+
+        // Key Combo shortcut (Ctrl + Shift + R) to quickly toggle Admin Dashboard
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'R') {
+                toggleAdminModal();
+            }
+        });
+    </script>
+</body>
+</html>
